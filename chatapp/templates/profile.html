@@ -1,0 +1,43 @@
+{% extends 'links.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<title>Profile {{user.username}}</title>
+<div class="container">
+      <div class="avatar">
+        {% if user.pic %}
+        <img src="{{user.pic.url}}" alt="">
+        {%  else %} 
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAV4KeX1dWGctJDMu6xo3GS7cDEhjk1nlZ5A&usqp=CAU" alt="avatar">
+         {% endif %}
+  
+      </div>
+      <div class="main-info">
+          <h5 class="name" >{{user.first_name}} {{user.last_name}}</h5>
+          <p>{{user.last_login|naturaltime}}</p>
+          {% if request.user == user %}
+          <a href="/edit/{{user.username}}" class="btn btn-outline-primary" >Change</a>
+          {% else %}
+          <a class="btn btn-outline-dark" href="/chat/{{user.username}}" >Chatting</a>
+          {% endif %}
+      </div>
+      <div style="clear:both ;" ></div>
+      <div class="info">
+          <h5>Information</h5>
+          {% if user.bio %}
+          <p class="content">  {{user.bio}}</p>
+          <p class="tag" >Biography</p>
+          {% endif %}
+          <p class="content">  @{{user.username}}</p>
+          <p class="tag" >Username </p>
+          <p class="content"> {{user.email}}</p>
+          <p class="tag" >Email of user </p>
+          {% if user.web %}
+          <p class="content"> {{user.web}}</p>
+          <p class="tag" >Website of user </p>
+          {% endif %}
+          
+      </div>
+  </div>
+{% endblock content %}
+ 

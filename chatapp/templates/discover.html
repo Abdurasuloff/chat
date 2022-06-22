@@ -1,0 +1,35 @@
+{% extends 'links.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+      <title>Discover friends</title>
+<div >
+      <form  class="  search input-group mb-3" style="width: 350px;" method="get" >
+      <input name="q" type="search" class="form-control" placeholder="Search global friends" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button   class="btn btn-outline-secondary" type="submit"><i class="fa fa-search" ></i></button>
+      </form>
+</div>
+
+<div style="clear:both;" ></div>
+    
+<div class="container2"   >
+      {% for user in users %}
+      <div class="content">
+      <div class="avatar">
+          {% if user.pic %}
+          <img src="{{user.pic.url}}" alt="">
+          {% else %}
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAV4KeX1dWGctJDMu6xo3GS7cDEhjk1nlZ5A&usqp=CAU" alt="">
+          {% endif %}    
+      </div>
+      <div class="main-info">
+          <h5 class="name" >{{user.first_name}} {{user.last_name}}</h6>
+          <p>{{user.last_login|naturaltime}}</p>
+          <a  href="/chat/{{user.username}}" >Say hello!</a>
+      </div>
+      </div>
+      {% endfor %}
+</div>
+  <div style="clear:both ;" ></div>
+{% endblock content %}
+ 

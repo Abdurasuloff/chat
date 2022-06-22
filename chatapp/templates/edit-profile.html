@@ -1,0 +1,47 @@
+{% extends 'links.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<title>Edit profile</title>
+<div class="container">
+      {% if request.user == user %}
+      <div class="avatar">
+           {% if user.pic %}
+           <img src="{{user.pic.url}}" alt="">
+           {%  else %} 
+           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAV4KeX1dWGctJDMu6xo3GS7cDEhjk1nlZ5A&usqp=CAU" alt="avatar">
+            {% endif %}
+      </div>
+      <form enctype="multipart/form-data"   method="post">
+            {% csrf_token %}
+      <div class="main-info">
+          <h2 class="name" style="margin-top: 15px;"  ><input required name="first_name" maxlength="150"  value="{{user.first_name}}" placeholder="First name(required)"  type="text"> </h2>
+          <h2><input type="text" name="last_name" value="{{user.last_name}}" placeholder="Last name(optional)"></h2>
+         
+          <label for="pic-clear_id">Clear pic:  <input type="checkbox" name="pic-clear" id="pic-clear_id"> </label> 
+          <input type="file" accept="image/*"  name="pic" {% if user.pic %} value="{{user.pic.url}}"  {% endif %} >
+         
+      </div>    
+      <div style="clear:both ;" ></div>
+      <div class="info">
+          <h3>Information:</h3>
+
+          <p class="content"><input name="bio" placeholder="something about yourself"  value="{{user.bio}}" type="text"></p>
+          <p class="tag" >Biography</p>
+
+          <p class="content"><input name="username"  value="{{user.username}}" placeholder="Username(required)"  type="text" required  > </p>
+          <p class="tag" >Username </p>
+
+          <p class="content"><input name="web" {% if user.web %}  value="{{user.web}}" {% endif %}  type="url"   placeholder="Web(optional)"   > </p>
+          <p class="tag" >Website of user </p>
+          <button class="btn btn-primary"  type="submit" >Save changes</button>
+      </div>
+      </form>
+
+      {% else %}
+      <br><br><br><br>
+      <center>You are not owner of this account</center>
+      {% endif %}
+  </div>
+{% endblock content %}
+ 
